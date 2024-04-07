@@ -26,12 +26,12 @@ pm2 start npm --name xdc3_practice -- start
 # 3.画面表示
 ## (1) ブラウザからの接続
 ```
-https://[IP-Address]:3000/
+http://[IP-Address]:3000/
 ```
 
 # 3.その他
 ## (1) プログラム修正後の差分を取得する場合
 ```
-cd xdc3_practice
+cd ~/xdc3_practice/
 git pull
 ```
