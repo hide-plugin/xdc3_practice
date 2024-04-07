@@ -11,8 +11,22 @@ cd xdc3_practice
 ```
 npm install
 ```
-## (3) node.jsの実行
+## (3) ポート開放
+3000番ポートを使って接続するため、事前にportを開放する。
 ```
-pm2 start xdc3_practice.js
+sudo ufw status
+sudo ufw allow 3000/tcp
+sudo ufw status
 ```
+## (4) 常駐化
+```
+pm2 start npm --name xdc3_practice -- start
+```
+
+# 3.画面表示
+## (1) ブラウザからの接続
+```
+https://[IP-Address]:3000/
+```
+
 # 3.その他
