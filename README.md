@@ -11,8 +11,13 @@ cd xdc3_practice
 ```
 npm install
 ```
-## (3) node.jsの実行
+## (3) node.jsの常駐化
 ```
 pm2 start app.json
 ```
+## (4) ブラウザでの画面表示
+```
+https://[IP-Address]:3000/
+```
+
 # 3.その他
