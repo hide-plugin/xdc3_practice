@@ -13,6 +13,6 @@ npm install
 ```
 ## (3) node.jsの実行
 ```
-pm2 start xdc3_practice.js
+pm2 start app.json
 ```
 # 3.その他
