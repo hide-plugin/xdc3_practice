@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>rpcCheck</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel='stylesheet' href="/stylesheets/style.css" />
+  </head>
+  <body class="container">
+    <header>
+      <h1 class="display-4">rpcCheckのページ</h1>
+    </header>
+    <form method="post" action="/hello/post">
+      <div class="form-group">
+        <input type="radio" name="selObj" value="1" checked />
+        <label for="sel111">Huey1</label><br>
+        <input type="radio" name="selObj" value="2" checked />
+        <label for="sel111">Huey2</label><br>
+        <input type="radio" name="selObj" value="3" checked />
+        <label for="sel111">Huey3</label><br>
+        <input type="submit" value="送信" class="btn btn-primary">
+      </div>
+    </form>
+  </body>
+</html>

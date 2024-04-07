@@ -2,10 +2,14 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel='stylesheet' href="/stylesheets/style.css" />
   </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+  <body class="container">
+    <header>
+      <h1 class="display-4"><%= title %></h1>
+    </header>
+    <p>Welcome to <%= title %></p><br>
+    <a href="/rpcCheck">rpcCheck</a>
   </body>
 </html>
