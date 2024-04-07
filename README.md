@@ -4,7 +4,7 @@ Web画面からxdc3コマンドをどこまで使えるのか、node.jsの練習
 # 2.事前準備
 ## (1) git clone
 ```
-git clone https://github.com/hide0918/xdc3_practice.git
+cd ~ && git clone https://github.com/hide0918/xdc3_practice.git
 cd xdc3_practice
 ```
 ## (2) npm install
