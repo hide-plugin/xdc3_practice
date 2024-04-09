@@ -1,0 +1,18 @@
+{
+"RPC" : [
+    { "URL": "https://erpc.xinfin.network" },
+    { "URL": "https://earpc.xinfin.network" }
+],
+"RPC_TEST" : [
+    { "URL": "https://erpc.apothem.network" },
+    { "URL": "https://earpc.apothem.network" }
+],
+"WSS" : [
+    { "URL": "wss://ews.xinfin.network" },
+    { "URL": "wss://aws.xinfin.network" },
+    { "URL": "wss://eaws.xinfin.network" }
+],
+"WSS_TEST" : [
+    { "URL": "wss://ws.apothem.network/ws" }
+]
+}

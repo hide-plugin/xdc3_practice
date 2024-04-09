@@ -7,8 +7,10 @@
   </head>
 <body>
     <h1>TODO List</h1>
-    --<5秒くらいかかるので表示を改良する必要あり>--<br>
-    <div id="rpc-container"></div>
+    aaaa<br>
+    <div id="rpc-container">
+        <!--　ここに出力 -->
+    </div>
     <script>
         // id="todo-container"要素を取得する
         fetch('list')
@@ -16,28 +18,24 @@
             .then((rpcList) => {
                 // id="rpc-container"要素を取得する
                 const rpcContainer = document.querySelector('#rpc-container');
-                rpcContainer.innerHTML = "";
-
-                let url;
-                let ver;
-                let htmlParts;
-                let html = '';
+console.log(rpcList);
+                let html;
                 // JSONの各要素に対して
                 for(let item in rpcList) {
-                    htmlParts = "<strong>" + item + "</strong><br>";
+                    console.log(item);
                     for(let subItem in rpcList[item]){
-                        url = rpcList[item][subItem]["URL"];
-                        ver = rpcList[item][subItem]["ver"];
-                        htmlParts += url + "," + ver + "<br>";
+                        console.log(subItem);
                     }
-                    console.log(htmlParts);
+                        let htmlParts = '<div>' + item + '</div>';
+
                     // 先述の変数の中に、出来上がったHTMLを格納
                     html += htmlParts;
                 }
                 // 変数に格納したHTMLを出力
                 rpcContainer.innerHTML = html;
+//                document.getElementById('rpc-container').innerHTML = html;
             })
     </script>
-    ----<br>
+    bbb<br>
 </body>
 </html>
