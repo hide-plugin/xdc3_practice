@@ -1,0 +1,22 @@
+{
+    "MAINNET" : {
+        "RPC" : [
+            { "url": "https://erpc.xinfin.network" },
+            { "url": "https://earpc.xinfin.network" }
+        ],
+        "WSS" : [
+            { "url": "wss://ews.xinfin.network" },
+            { "url": "wss://aws.xinfin.network" },
+            { "url": "wss://eaws.xinfin.network" }
+        ]
+    },
+    "APOTHEM" : {
+        "RPC" : [
+            { "url": "https://erpc.apothem.network" },
+            { "url": "https://earpc.apothem.network" }
+        ],
+        "WSS" : [
+            { "url": "wss://ws.apothem.network/ws" }
+        ]
+    }
+}

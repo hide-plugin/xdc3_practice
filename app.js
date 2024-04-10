@@ -18,8 +18,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // router
 app.use('/', require('./routes/index'));
-app.use('/rpcCheck', require('./routes/rpcCheck'));
-app.use('/list', require('./routes/list'));
+app.use('/networkList', require('./routes/networkList'));
+app.use('/createList', require('./routes/createList'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
