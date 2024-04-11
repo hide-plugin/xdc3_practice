@@ -13,6 +13,7 @@ npm install
 ```
 ## (3) ポート開放
 3000番ポートを使って接続するため、事前にportを開放する。
+（あとで修正予定）
 ```
 sudo ufw status
 sudo ufw allow 3000/tcp
