@@ -64,7 +64,7 @@ $(function () {
 
   // 更新ボタンイベント
   $('#button').click(function () {
-    $("#networkList").html("リスト更新中");
+    $("#networkList").html("<img src='/images/712-24.gif' alt=''>&nbsp;&nbsp;リスト更新中（10秒ほどお待ちください）");
 
     $.ajax({
       url: "/createList", 
