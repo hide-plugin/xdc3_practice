@@ -9,6 +9,12 @@
   </head>
   <body>
     <h1><%= title %></h1><br>
+    <div id="div1">
+      検索対象を変更したい場合、下記ファイルを修正してください。<br>
+      <script>
+        $("#div1").get(0).insertAdjacentHTML("afterend", "・http://"+location.host+ "/data/search.json<br><br>");
+      </script>
+    </div>
     <button type="submit" id="button">データ取得</button><br><br>
     <div id="networkList"></div>
   </body>
