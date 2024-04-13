@@ -18,16 +18,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // router
 app.use('/', require('./routes/index'));
-app.use('/networkList', require('./routes/networkList'));
+app.use('/networkStatus', require('./routes/networkStatus'));
 app.use('/createList', require('./routes/createList'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+console.log("404 error handler in");
   next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
+console.log("error handler in");
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

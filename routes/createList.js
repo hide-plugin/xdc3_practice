@@ -1,46 +1,10 @@
 const express = require('express');
 const fs = require('fs');
-const i_path = "./public/data/searchList.json";
-const o_path = "./public/data/resultList.json";
+const i_path = "./public/data/search.json";
+const o_path = "./public/data/result.json";
 const Xdc3 = require('xdc3');
 
-let router = express.Router();
-
-/* GET home page. */
-router.get('/', async function(req, res, next) {
-  console.log("-- [Start] createList()");
-  let data;
-
-  if(fs.existsSync(i_path)){
-    // jsonファイルをオブジェクトに変換
-    const bufferData = fs.readFileSync(i_path);
-    const dataJSON = bufferData.toString();
-    data = JSON.parse(dataJSON)
-
-    for (const network in data) {
-      // JSONからMAINNET/APOTHEMのオブジェクトを取得
-      console.log("[Network] " + network);
-      for(const type in data[network]) {
-        // オブジェクトからRPC/WSSのオブジェクトを取得
-        console.log("  [Target] " + type);
-        await getInfo(type, data[network][type]);
-      }
-    }
-  }else{
-    console.log( "ERROR: file does not exist.("+i_path+")");
-  }
-
-  // 作成日付を格納
-  const ymd = new Date().toLocaleDateString('sv-SE');
-  const time = new Date().toLocaleTimeString('ja-JP', {hour12:false});
-  data.DATE = ymd + " " + time;
-
-  const resultJSON = JSON.stringify(data)
-  fs.writeFileSync(o_path, resultJSON)
-  console.log("-- [End] createList()");
-
-  res.json(data);
-});
+const router = express.Router();
 
 async function getInfo(type, data){
 
@@ -53,9 +17,9 @@ async function getInfo(type, data){
       data[cnt].blc = await xdc3.eth.getBlockNumber();
       data[cnt].gas = await xdc3.eth.getGasPrice() * 0.000000001;
       if(await xdc3.utils.isHexStrict(await xdc3.eth.getCoinbase())){
-        data[cnt].pfx = "対応";
+        data[cnt].pfx = "0x";
       }else{
-        data[cnt].pfx = "未対応";
+        data[cnt].pfx = "XDC";
       }
     }else if(type == "WSS"){
       // WSS系の場合
@@ -69,5 +33,46 @@ async function getInfo(type, data){
     }
   }
 }
+
+router.get('/', async function(req, res, next) {
+  try {
+    console.log("-- [Start] createList()");
+    let data;
+
+    if(fs.existsSync(i_path)){
+      // jsonファイルをオブジェクトに変換
+      const bufferData = fs.readFileSync(i_path);
+      const dataJSON = bufferData.toString();
+      data = JSON.parse(dataJSON)
+  
+      for (const network in data) {
+        // JSONからMAINNET/APOTHEMのオブジェクトを取得
+        console.log("[Network] " + network);
+        for(const type in data[network]) {
+          // オブジェクトからRPC/WSSのオブジェクトを取得
+          console.log("  [Target] " + type);
+          await getInfo(type, data[network][type]);
+        }
+      }
+    }else{
+      console.log("ERROR: 対象のRPC/WCCが記載されたjsonファイルが見つかりません。("+i_path+")");
+      throw TypeError("ERROR: 対象のRPC/WCCが記載されたjsonファイルが見つかりません。("+i_path+")");
+    }
+  
+    // 作成日付を格納
+    const ymd = new Date().toLocaleDateString('sv-SE');
+    const time = new Date().toLocaleTimeString('ja-JP', {hour12:false});
+    data.DATE = ymd + " " + time;
+  
+    const resultJSON = JSON.stringify(data)
+    fs.writeFileSync(o_path, resultJSON)
+    console.log("-- [End] createList()");
+  
+    res.json(data);
+  } catch(err) {
+    console.log("例外処理");
+    next(err);
+  }
+});
 
 module.exports = router;

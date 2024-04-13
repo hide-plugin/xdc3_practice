@@ -6,3 +6,52 @@ body {
 a {
   color: #00B7FF;
 }
+
+.network-tbl {
+  border-collapse: collapse;
+}
+
+/* thの設定 */
+.network-tbl th{
+  background: #b7efb7;
+  border: 1px solid #333;
+  line-height: 25px;
+  padding: 0px 15px;
+}
+
+/* trの設定 */
+.network-tbl.tr {
+  background: #b7efb7;
+  border: 1px solid #333;
+  line-height: 25px;
+  padding: 0px 15px;
+}
+
+/* tdの設定 */
+.network-tbl td{
+  border: 1px solid #333;
+  line-height: 25px;
+  padding: 0px 15px;
+}
+
+/* 2行目を中央揃え */
+.network-tbl th{
+  text-align: center;
+}
+
+/* 引数の列を中央揃え */
+.network-tbl td:nth-of-type(1) {
+  text-align: center;
+}
+.network-tbl td:nth-of-type(2) {
+  text-align: center;
+}
+.network-tbl td:nth-of-type(5) {
+  text-align: center;
+}
+.network-tbl td:nth-of-type(6) {
+  text-align: center;
+}
+.network-tbl td:nth-of-type(7) {
+  text-align: center;
+}
