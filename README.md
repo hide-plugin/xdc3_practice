@@ -1,5 +1,5 @@
 # 1.概要
-Web画面からxdc3コマンドをどこまで使えるのか、node.js、javascript、jquery、bootstrapの練習も兼ねる。<br>
+Web画面からxdc3コマンドをどこまで使いこなせるのか、javascript、jquery、bootstrap、node.js、postgresqlの練習も兼ねる。<br>
 * 1.RPC/WSS状態確認機能<br>
 * 2.Wallet残高確認機能<br>
 * 3.xxxxxx
