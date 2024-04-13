@@ -1,5 +1,8 @@
 # 1.概要
 Web画面からxdc3コマンドをどこまで使えるのか、node.js、javascript、jqueryの練習も兼ねる。
+1.RPC/WSS状態確認機能
+2.Wallet残高確認機能
+3.xxxxxx
 
 # 2.事前準備
 ## (1) git clone
