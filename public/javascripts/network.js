@@ -16,8 +16,8 @@ $(function () {
       let typLength = [mRLen, mWLen, aRLen, aWLen];
  
       const table1 = $("<table border='1' class='network-tbl'><tbody>");
-      table1.append("<tr class='header1'><th colspan='7' >作成日付：" + data.DATE + "</th></tr>");
-      table1.append("<tr class='header2'><th>Network</th><th>Type</th><th>URL</th><th>Version</th><th>Block</th><th>Gas(Gwei)</th><th>Prefix</th></tr>");
+      table1.append("<tr class='header1'><th colspan='8' >作成日付：" + data.DATE + "</th></tr>");
+      table1.append("<tr class='header2'><th>Network</th><th>Type</th><th>URL</th><th>Version</th><th>Block</th><th>Gas(Gwei)</th><th>Prefix</th><th>処理時間(Sec)</th></tr>");
   
       let iCnt=0;
       let jCnt=0;
@@ -37,10 +37,11 @@ $(function () {
             let blc = data[network][type][item]["blc"];
             let gas = data[network][type][item]["gas"];
             let pfx = data[network][type][item]["pfx"];
+            let ptm = data[network][type][item]["ptm"];
             if(item!=0){
               html += "<tr><td style='display: none;'></td><td style='display: none;'></td>";
             }
-            html += "<td>"+url+"</td><td>"+ver+"</td><td>"+blc+"</td><td>"+gas+"</td><td>"+pfx+"</td></tr>";
+            html += "<td>"+url+"</td><td>"+ver+"</td><td>"+blc+"</td><td>"+gas+"</td><td>"+pfx+"</td><td>"+ptm+"</td></tr>";
             table1.append(html);
             html = "";
           }

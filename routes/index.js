@@ -4,7 +4,7 @@ const router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   try {
-    res.render('index', { title: 'Xdc' });
+    res.render('index', { title: 'XDC' });
   } catch(err) {
     next(err);
   }

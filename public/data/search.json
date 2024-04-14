@@ -1,11 +1,11 @@
 {
     "MAINNET" : {
         "RPC" : [
+            { "url": "https://arpc.xinfin.network" },
             { "url": "https://erpc.xinfin.network" },
             { "url": "https://earpc.xinfin.network" }
         ],
         "WSS" : [
-            { "url": "wss://ews.xinfin.network" },
             { "url": "wss://aws.xinfin.network" },
             { "url": "wss://eaws.xinfin.network" }
         ]

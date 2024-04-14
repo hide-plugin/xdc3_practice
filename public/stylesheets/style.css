@@ -55,3 +55,6 @@ a {
 .network-tbl td:nth-of-type(7) {
   text-align: center;
 }
+.network-tbl td:nth-of-type(8) {
+  text-align: center;
+}

@@ -7,30 +7,37 @@ const Xdc3 = require('xdc3');
 const router = express.Router();
 
 async function getInfo(type, data){
-
-  for(let cnt in data){
-    console.log("    [Url] " + data[cnt]["url"]);
-    if(type == "RPC"){
-      // RPC系の場合
-      let xdc3 = new Xdc3(data[cnt]["url"]);
-      data[cnt].ver = await xdc3.eth.getNodeInfo();
-      data[cnt].blc = await xdc3.eth.getBlockNumber();
-      data[cnt].gas = await xdc3.eth.getGasPrice() * 0.000000001;
-      if(await xdc3.utils.isHexStrict(await xdc3.eth.getCoinbase())){
-        data[cnt].pfx = "0x";
+  try {
+    for(let cnt in data){
+      let startTime = Date.now(); // 開始時間
+      console.log("    [Url] " + data[cnt]["url"] + " 情報取得中");
+      if(type == "RPC"){
+        // RPC系の場合
+        let xdc3 = new Xdc3(data[cnt]["url"]);
+        data[cnt].ver = await xdc3.eth.getNodeInfo();
+        data[cnt].blc = await xdc3.eth.getBlockNumber();
+        data[cnt].gas = await xdc3.eth.getGasPrice() * 0.000000001;
+        if(await xdc3.utils.isHexStrict(await xdc3.eth.getCoinbase())){
+          data[cnt].pfx = "0x";
+        }else{
+          data[cnt].pfx = "XDC";
+        }
+      }else if(type == "WSS"){
+        // WSS系の場合
+        let xdc3 = new Xdc3(data[cnt]["url"]);
+        data[cnt].ver = await xdc3.eth.getNodeInfo();
+        data[cnt].blc = "-";
+        data[cnt].gas = "-";
+        data[cnt].pfx = "-";
       }else{
-        data[cnt].pfx = "XDC";
+        console.log("ERROR: 対象外は無視("+cnt+")");
       }
-    }else if(type == "WSS"){
-      // WSS系の場合
-      let xdc3 = new Xdc3(data[cnt]["url"]);
-      data[cnt].ver = await xdc3.eth.getNodeInfo();
-      data[cnt].blc = "-";
-      data[cnt].gas = "-";
-      data[cnt].pfx = "-";
-    }else{
-      console.log("ERROR: 対象外は無視("+cnt+")");
+      let endTime = Date.now(); // 終了時間
+      data[cnt].ptm = ((endTime - startTime) * 0.001).toFixed(2);
     }
+  } catch(err) {
+    console.log("例外処理");
+    next(err);
   }
 }
 

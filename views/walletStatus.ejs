@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="/javascripts/network.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1><br>
+    <div id="div1">
+      残高を表示したい通過を選択してください。<br>
+      <label><input type="checkbox" name="level" value="ok">XDC</label>
+      <label><input type="checkbox" name="level" value="bad">PLI</label>
+      <label><input type="checkbox" name="level" value="bad">SRX</label>
+      <label><input type="checkbox" name="level" value="bad">FXD</label>
+      <label><input type="checkbox" name="level" value="bad">FXD</label>
+      <button type="submit" id="button">データ取得</button><br><br>
+    </div>
+    <div id="networkList"></div>
+  </body>
+</html>
