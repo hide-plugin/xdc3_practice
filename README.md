@@ -1,5 +1,8 @@
 # 1.概要
-Web画面からxdc3コマンドをどこまで使えるのか、node.js、javascript、jqueryの練習も兼ねる。
+Web画面からxdc3コマンドをどこまで使いこなせるのか、javascript、jquery、bootstrap、node.js、postgresqlの練習も兼ねる。<br>
+* 1.RPC/WSS状態確認機能<br>
+* 2.Wallet残高確認機能<br>
+* 3.xxxxxx
 
 # 2.事前準備
 ## (1) git clone
@@ -30,9 +33,11 @@ pm2 start npm --name xdc3_practice -- start
 http://[IP-Address]:3000/
 ```
 
-# 3.その他
+# 4.その他
 ## (1) プログラム修正後の差分を取得する場合
 ```
 cd ~/xdc3_practice/
 git pull
 ```
+# 参考
+XinFinOrg/XDC3：https://github.com/XinFinOrg/XDC3/blob/master/README-Web3.md
