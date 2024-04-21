@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # resultData
-.public/data/result.json
+public/data/result.json
