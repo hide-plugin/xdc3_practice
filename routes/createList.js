@@ -6,34 +6,59 @@ const Xdc3 = require('xdc3');
 
 const router = express.Router();
 
-async function getInfo(type, data){
+/** 
+ * 処理対象URLの各種情報を取得する
+ * @param {string} url  処理対象のURL
+ * @param {string} type 処理対象の種類（RPC/WSS）
+ * @param {number} data 処理結果の格納領域
+ */
+async function getInfo(url, type, data){
   try {
-    for(let cnt in data){
-      let startTime = Date.now(); // 開始時間
-      console.log("    [Url] " + data[cnt]["url"] + " 情報取得中");
-      if(type == "RPC"){
-        // RPC系の場合
-        let xdc3 = new Xdc3(data[cnt]["url"]);
-        data[cnt].ver = await xdc3.eth.getNodeInfo();
-        data[cnt].blc = await xdc3.eth.getBlockNumber();
-        data[cnt].gas = await xdc3.eth.getGasPrice() * 0.000000001;
-        if(await xdc3.utils.isHexStrict(await xdc3.eth.getCoinbase())){
-          data[cnt].pfx = "0x";
-        }else{
-          data[cnt].pfx = "XDC";
-        }
-      }else if(type == "WSS"){
-        // WSS系の場合
-        let xdc3 = new Xdc3(data[cnt]["url"]);
-        data[cnt].ver = await xdc3.eth.getNodeInfo();
-        data[cnt].blc = "-";
-        data[cnt].gas = "-";
-        data[cnt].pfx = "-";
+    let xdc3 = new Xdc3(url);
+    if(type == "RPC"){
+      // RPC系の場合
+      data.cid = await xdc3.eth.getChainId();
+      data.ver = await xdc3.eth.getNodeInfo();
+      data.blc = await xdc3.eth.getBlockNumber();
+      data.gas = await xdc3.eth.getGasPrice() * 0.000000001;
+      if(await xdc3.utils.isHexStrict(await xdc3.eth.getCoinbase())){
+        data.pfx = "0x";
       }else{
-        console.log("ERROR: 対象外は無視("+cnt+")");
+        data.pfx = "XDC";
       }
-      let endTime = Date.now(); // 終了時間
-      data[cnt].ptm = ((endTime - startTime) * 0.001).toFixed(2);
+    }else if(type == "WSS"){
+      // WSS系の場合
+      data.blc = "-";
+      data.gas = "-";
+      data.pfx = "-";
+      data.cid = await xdc3.eth.getChainId();
+      data.ver = await xdc3.eth.getNodeInfo();
+    }else{
+      console.log("ERROR: 処理対象外の場合は無視("+type+")");
+    }
+  } catch(err) {
+    console.log("例外処理");
+    next(err);
+  }
+}
+
+/** 
+ * 処理結果格納領域を初期化する
+ * @param {string} type    処理対象の種類（RPC/WSS）
+ * @param {number} inData  入力ファイル（JSON）の情報格納領域
+ * @param {string} typeAry 処理結果の格納領域
+ */
+async function preProc(type, typeAry, inData){
+  try {
+    for(let cnt in inData){
+      typeAry[cnt] = {url: inData[cnt]["url"]};
+      typeAry[cnt].cid = "未取得";
+      typeAry[cnt].ver = "未取得";
+      typeAry[cnt].blc = "未取得";
+      typeAry[cnt].gas = "未取得";
+      typeAry[cnt].pfx = "未取得";
+      console.log("    [Url] " + typeAry[cnt].url + " 情報取得");
+      getInfo(typeAry[cnt].url, type, typeAry[cnt]);
     }
   } catch(err) {
     console.log("例外処理");
@@ -44,38 +69,37 @@ async function getInfo(type, data){
 router.get('/', async function(req, res, next) {
   try {
     console.log("-- [Start] createList()");
-    let data;
+    let jsonAryNet = new Object();
 
     if(fs.existsSync(i_path)){
       // jsonファイルをオブジェクトに変換
       const bufferData = fs.readFileSync(i_path);
       const dataJSON = bufferData.toString();
-      data = JSON.parse(dataJSON)
+      const inData = JSON.parse(dataJSON)
   
-      for (const network in data) {
-        // JSONからMAINNET/APOTHEMのオブジェクトを取得
+      for (const network in inData) {
+        // 入力ファイルのNETWORK（MAINNET/APOTHEM）の数だけループ
         console.log("[Network] " + network);
-        for(const type in data[network]) {
-          // オブジェクトからRPC/WSSのオブジェクトを取得
+        jsonAryNet[network] = new Object();
+        for(const type in inData[network]) {
+          // NETWORKごとのTYPE（RPC/WSS）の数だけループ
           console.log("  [Target] " + type);
-          await getInfo(type, data[network][type]);
+          jsonAryNet[network][type] = new Array();
+
+          // NETWORK-TYPEごとに各種情報を取得する
+          preProc(type,jsonAryNet[network][type], inData[network][type]);
         }
       }
+      // 非同期処理を下記の秒数待機
+      await new Promise((resolve) => setTimeout(resolve, 5000));
     }else{
       console.log("ERROR: 対象のRPC/WCCが記載されたjsonファイルが見つかりません。("+i_path+")");
       throw TypeError("ERROR: 対象のRPC/WCCが記載されたjsonファイルが見つかりません。("+i_path+")");
     }
-  
-    // 作成日付を格納
-    const ymd = new Date().toLocaleDateString('sv-SE');
-    const time = new Date().toLocaleTimeString('ja-JP', {hour12:false});
-    data.DATE = ymd + " " + time;
-  
-    const resultJSON = JSON.stringify(data)
+    const resultJSON = JSON.stringify(jsonAryNet)
     fs.writeFileSync(o_path, resultJSON)
     console.log("-- [End] createList()");
-  
-    res.json(data);
+    res.json(jsonAryNet);
   } catch(err) {
     console.log("例外処理");
     next(err);

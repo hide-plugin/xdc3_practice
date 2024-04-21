@@ -10,8 +10,8 @@
   <body>
     <h1><%= title %></h1><br>
     <div id="div1">
+      <li>5秒以内に応答がない場合はエラーとしています。</li>
       <li>検索対象を変更したい場合、下記ファイルを修正してください。</li>
-      <li>応答がない場合、接続に失敗している可能性があります。ログから実行中のRPC/WSSを確認し、下記ファイルから削除したのち再実行してください。</li>
       <script>
         $("#div1").get(0).insertAdjacentHTML("afterend", ">>> http://"+location.host+ "/data/search.json<br><br>");
       </script>
