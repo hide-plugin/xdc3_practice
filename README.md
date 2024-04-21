@@ -8,7 +8,7 @@ Web画面からxdc3コマンドをどこまで使いこなせるのか、javascr
 # 2.事前準備
 ## (1) git clone
 ```
-cd ~ && git clone https://github.com/hide0918/xdc3_practice.git
+cd ~ && git clone https://github.com/hide-plugin/xdc3_practice.git
 cd xdc3_practice
 ```
 ## (2) npm install
