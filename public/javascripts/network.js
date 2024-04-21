@@ -22,9 +22,6 @@ $(function () {
       let iCnt=0;
       let jCnt=0;
       for(let network in data) {
-        if(network == "DATE"){
-          continue;
-        }
         let html = "<tr><td rowspan="+netLength[iCnt]+">"+network+"</td>";
         for(let type in data[network]){
           if (html.indexOf("<tr>") < 0) {
@@ -37,10 +34,18 @@ $(function () {
             let blc = data[network][type][item]["blc"];
             let gas = data[network][type][item]["gas"];
             let pfx = data[network][type][item]["pfx"];
+
+            let cid = data[network][type][item]["cid"];
             if(item!=0){
               html += "<tr><td style='display: none;'></td><td style='display: none;'></td>";
             }
-            html += "<td>"+url+"</td><td>"+ver+"</td><td>"+blc+"</td><td>"+gas+"</td><td>"+pfx+"</td></tr>";
+            if(cid == "未取得"){
+              bgcolor = "classNameError"; 
+            } else {
+              bgcolor = "classNameNormal"; 
+            } 
+            html += "<td class='" + bgcolor + "'>"+url+"</td><td class='" + bgcolor + "'>"+ver+"</td><td class='" + bgcolor + "'>"+blc+"</td><td class='" + bgcolor + "'>"+gas+"</td><td class='" + bgcolor + "'>"+pfx+"</td></tr>";
+
             table1.append(html);
             html = "";
           }

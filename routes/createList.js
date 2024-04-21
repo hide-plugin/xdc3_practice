@@ -17,7 +17,6 @@ async function getInfo(url, type, data){
     let xdc3 = new Xdc3(url);
     if(type == "RPC"){
       // RPC系の場合
-      data.cid = await xdc3.eth.getChainId();
       data.ver = await xdc3.eth.getNodeInfo();
       data.blc = await xdc3.eth.getBlockNumber();
       data.gas = await xdc3.eth.getGasPrice() * 0.000000001;
@@ -26,19 +25,19 @@ async function getInfo(url, type, data){
       }else{
         data.pfx = "XDC";
       }
+      data.cid = await xdc3.eth.getChainId();
     }else if(type == "WSS"){
       // WSS系の場合
       data.blc = "-";
       data.gas = "-";
       data.pfx = "-";
-      data.cid = await xdc3.eth.getChainId();
       data.ver = await xdc3.eth.getNodeInfo();
+      data.cid = await xdc3.eth.getChainId();
     }else{
       console.log("ERROR: 処理対象外の場合は無視("+type+")");
     }
   } catch(err) {
-    console.log("例外処理");
-    next(err);
+    console.log("■ 取得エラー（" + url + "）");
   }
 }
 
@@ -101,7 +100,7 @@ router.get('/', async function(req, res, next) {
     console.log("-- [End] createList()");
     res.json(jsonAryNet);
   } catch(err) {
-    console.log("例外処理");
+    console.log("例外処理" + err);
     next(err);
   }
 });

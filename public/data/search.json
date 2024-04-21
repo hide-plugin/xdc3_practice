@@ -3,7 +3,9 @@
         "RPC" : [
             { "url": "https://arpc.xinfin.network" },
             { "url": "https://erpc.xinfin.network" },
-            { "url": "https://erpc.xinfin.network" }
+            { "url": "https://erpc.xinfin.network" },
+            { "url": "https://rpc.primenumbers.xyz/" },
+            { "url": "https://rpc.primenumbers2.xyz/" }
         ],
         "WSS" : [
             { "url": "wss://aws.xinfin.network" },

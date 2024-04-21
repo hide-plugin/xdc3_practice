@@ -58,3 +58,11 @@ a {
 .network-tbl td:nth-of-type(8) {
   text-align: center;
 }
+
+.classNameNormal {
+  background-color: white;
+}
+
+.classNameError {
+  background-color: #FFCCCC;
+}

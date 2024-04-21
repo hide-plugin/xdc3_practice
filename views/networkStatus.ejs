@@ -10,7 +10,7 @@
   <body>
     <h1><%= title %></h1><br>
     <div id="div1">
-      <li>5秒以内に応答がない場合はエラーとしています。</li>
+      <li>応答待ち時間は5秒に設定しています。</li>
       <li>検索対象を変更したい場合、下記ファイルを修正してください。</li>
       <script>
         $("#div1").get(0).insertAdjacentHTML("afterend", ">>> http://"+location.host+ "/data/search.json<br><br>");
