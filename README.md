@@ -1,8 +1,9 @@
 # 1.概要
 Web画面からxdc3コマンドをどこまで使いこなせるのか、javascript、jquery、bootstrap、node.js、postgresqlの練習も兼ねる。<br>
 * 1.RPC/WSS状態確認機能<br>
-* 2.Wallet残高確認機能<br>
-* 3.xxxxxx
+* 2.（予定）Wallet残高確認機能<br>
+* 3.（予定）pm2 logエラー一覧表示機能<br>
+* 4.xxxxxx
 
 # 2.事前準備
 ## (1) git clone
