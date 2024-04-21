@@ -15,9 +15,9 @@ $(function () {
       let netLength = [mRLen+mWLen, aRLen+aWLen];
       let typLength = [mRLen, mWLen, aRLen, aWLen];
  
-      const table1 = $("<table border='1' class='network-tbl'><tbody>");
-      table1.append("<tr class='header1'><th colspan='7' >作成日付：" + data.DATE + "</th></tr>");
-      table1.append("<tr class='header2'><th>Network</th><th>Type</th><th>URL</th><th>Version</th><th>Block</th><th>Gas(Gwei)</th><th>Prefix</th></tr>");
+      const table1 = $("<br><table border='1' class='network-tbl'><tbody>");
+      table1.append("<tr class='header1'><th colspan='9' >作成日付：" + data.DATE + "</th></tr>");
+      table1.append("<tr class='header2'><th>Network</th><th>Type</th><th>URL</th><th>Version</th><th>Block</th><th>Gas(Gwei)</th><th>Prefix</th><th>ChainID</th><th>Status</th></tr>");
   
       let iCnt=0;
       let jCnt=0;
@@ -34,17 +34,19 @@ $(function () {
             let blc = data[network][type][item]["blc"];
             let gas = data[network][type][item]["gas"];
             let pfx = data[network][type][item]["pfx"];
-
             let cid = data[network][type][item]["cid"];
+            let sts = data[network][type][item]["sts"];
             if(item!=0){
               html += "<tr><td style='display: none;'></td><td style='display: none;'></td>";
             }
-            if(cid == "未取得"){
-              bgcolor = "classNameError"; 
+            if(sts == "タイムアウト"){
+              bgcolor = "getError"; 
+            } else if (sts == "接続エラー"){
+              bgcolor = "connectError"; 
             } else {
-              bgcolor = "classNameNormal"; 
+              bgcolor = "normal"; 
             } 
-            html += "<td class='" + bgcolor + "'>"+url+"</td><td class='" + bgcolor + "'>"+ver+"</td><td class='" + bgcolor + "'>"+blc+"</td><td class='" + bgcolor + "'>"+gas+"</td><td class='" + bgcolor + "'>"+pfx+"</td></tr>";
+            html += "<td class='" + bgcolor + "'>"+url+"</td><td class='" + bgcolor + "'>"+ver+"</td><td class='" + bgcolor + "'>"+blc+"</td><td class='" + bgcolor + "'>"+gas+"</td><td class='" + bgcolor + "'>"+pfx+"</td><td class='" + bgcolor + "'>"+cid+"</td><td class='" + bgcolor + "'>"+sts+"</td></tr>";
 
             table1.append(html);
             html = "";
@@ -70,13 +72,13 @@ $(function () {
   }
     
   // APIから最新情報を取得
-  const getData = function(){
+  const getData = function(timeout){
     $('#button').prop('disabled', true);
     $('#button').text('データ取得中');
     $("#networkList").html("<img src='/images/712-24.gif' alt=''>&nbsp;&nbsp;リスト更新中（しばらくお待ちください）");
 
     // リスト更新API呼び出し
-    $.getJSON("/createList", function() {
+    $.getJSON("/createList?timeout="+timeout, function() {
       // API呼び出し成功時
       console.log("getData() 正常終了");
       // 画面描画呼び出し
@@ -97,11 +99,16 @@ $(function () {
     })
   }
 
-  // 初期表示イベント
-  getData();
-
   // 更新ボタン押下イベント
-  $('#button').on("click", function() {
-    getData();
+  $('#getInfo').on("click", function() {
+    let element = document.getElementById('timeout');
+    $("#errMsg").html("");
+    if(element.value == ""){
+      $("#errMsg").html("<p class='error'>【入力エラー】「応答待ち時間」は必須入力項目です。</p>");
+    } else if (element.value < 1 || element.value > 60) {
+      $("#errMsg").html("<p class='error'>【入力エラー】「応答待ち時間」は1-60（秒）の間で入力してください。</p>");
+    } else {
+      getData(element.value);
+    }
   });
 });

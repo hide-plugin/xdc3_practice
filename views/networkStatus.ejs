@@ -10,14 +10,16 @@
   <body>
     <h1><%= title %></h1><br>
     <div id="div1">
-      <li>応答待ち時間は5秒に設定しています。</li>
-      <li>主な関数（getNodeInfo,getBlockNumber,getGasPrice,getCoinbase,getChainId）の使い方は<a href="https://web3js.readthedocs.io/en/v1.10.0/web3-eth.html" target="_blank">こちら</a>のページに記載しています。</li>
-      <li>検索対象を変更したい場合、下記ファイルを修正してください。</li>
-      <script>
-        $("#div1").get(0).insertAdjacentHTML("afterend", ">>> http://"+location.host+ "/data/search.json<br><br>");
-      </script>
+      <li>応答待ち時間を1-60（秒）の間で指定してください。</li>
+      <li>タイムアウト、接続エラー等で値を取得できなかったセルには"未取得"を表示します。</li>
+      <li>利用している関数（getNodeInfo,getBlockNumber,getGasPrice,getCoinbase,getChainId）の使い方は<a href="https://web3js.readthedocs.io/en/v1.10.0/web3-eth.html" target="_blank">こちら</a>のページに記載しています。</li>
+      <li>検索対象URLを変更したい場合はファイルを直接修正してください。（./data/search.json）</li>
+      <br>
     </div>
-    <button type="submit" id="button">データ取得</button><br><br>
+    <label for="timeout">応答待ち時間 (1-60)</label>&nbsp;
+    <input type="number" id="timeout" name="timeout" max="60" min="1" value="5" required>
+    <button type="submit" id="getInfo">データ取得</button>
+    <div id="errMsg"></div>
     <div id="networkList"></div>
   </body>
 </html>

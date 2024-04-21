@@ -14,6 +14,7 @@ const router = express.Router();
  */
 async function getInfo(url, type, data){
   try {
+    let startTime = Date.now(); // 開始時間
     let xdc3 = new Xdc3(url);
     if(type == "RPC"){
       // RPC系の場合
@@ -36,8 +37,12 @@ async function getInfo(url, type, data){
     }else{
       console.log("ERROR: 処理対象外の場合は無視("+type+")");
     }
+    data.sts = "正常";
+    let endTime = Date.now(); // 終了時間
+    data.ptm = ((endTime - startTime) * 0.001).toFixed(2);
   } catch(err) {
-    console.log("■ 取得エラー（" + url + "）");
+    data.sts = "接続エラー";
+    console.log("■ 接続エラー（" + url + "）");
   }
 }
 
@@ -56,6 +61,7 @@ async function preProc(type, typeAry, inData){
       typeAry[cnt].blc = "未取得";
       typeAry[cnt].gas = "未取得";
       typeAry[cnt].pfx = "未取得";
+      typeAry[cnt].sts = "タイムアウト";
       console.log("    [Url] " + typeAry[cnt].url + " 情報取得");
       getInfo(typeAry[cnt].url, type, typeAry[cnt]);
     }
@@ -89,8 +95,9 @@ router.get('/', async function(req, res, next) {
           preProc(type,jsonAryNet[network][type], inData[network][type]);
         }
       }
-      // 非同期処理を下記の秒数待機
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+
+      // 非同期処理を画面で指定した秒数だけ待機
+      await new Promise((resolve) => setTimeout(resolve, req.query.timeout*1000));
     }else{
       console.log("ERROR: 対象のRPC/WCCが記載されたjsonファイルが見つかりません。("+i_path+")");
       throw TypeError("ERROR: 対象のRPC/WCCが記載されたjsonファイルが見つかりません。("+i_path+")");

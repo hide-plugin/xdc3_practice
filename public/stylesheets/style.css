@@ -58,11 +58,28 @@ a {
 .network-tbl td:nth-of-type(8) {
   text-align: center;
 }
+.network-tbl td:nth-of-type(9) {
+  text-align: center;
+}
 
-.classNameNormal {
+.normal {
   background-color: white;
 }
 
-.classNameError {
+.getError {
   background-color: #FFCCCC;
+}
+
+.connectError {
+  background-color: #FF6666;
+}
+
+#timeout {
+  width: 5em;
+  margin-right: 1em;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
 }
