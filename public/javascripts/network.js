@@ -1,6 +1,6 @@
 $(function () {
   // JSONデータの取得先
-  const resultPath = "./data/result.json";
+  const resultPath = "./data/result/result.json";
 
   // APIから取得した情報を画面へ描画
   const createTable = function(){

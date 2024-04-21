@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const i_path = "./public/data/search.json";
-const o_path = "./public/data/result.json";
+const o_path = "./public/data/result/result.json";
 const Xdc3 = require('xdc3');
 
 const router = express.Router();
