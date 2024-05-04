@@ -7,16 +7,18 @@ webからxdc3をどこまで使えるのか、javascript、jquery、bootstrap、
 * 4.（予定）pm2 logエラー一覧表示機能<br>
 * 5.（予定）pm2 status一覧表示機能 SRX/PLI<br>
 * 6.xxxxxx
+<br>
 
 # 2.事前準備
 ## (1) git clone
-リポジトリの複製をローカル環境へ作成します。
+ホームディレクトリにリポジトリの複製を作成します。
 ```
 cd ~ && git clone https://github.com/hide-plugin/xdc3_practice.git
-cd xdc3_practice
 ```
 ## (2) npm install
+プロジェクトへ移動しnpmをインストールします。
 ```
+cd xdc3_practice
 npm install
 ```
 ## (3) ポート開放
