@@ -25,7 +25,11 @@ sudo ufw status
 sudo ufw allow 3000/tcp
 sudo ufw status
 ```
-## (4) 常駐化
+## (4) 入力ファイル作成
+```
+sudo nvm ~xdc3_practice/public/data/walletList.json
+```
+## (5) 常駐化
 ```
 pm2 start npm --name xdc3_practice -- start
 ```
