@@ -1,5 +1,6 @@
 # 1.概要
 webからxdc3をどこまで使えるのか、javascript、jquery、bootstrap、postgresqlの練習も兼ねる。<br>
+実装機能（予定）を以下に記載する。<br>
 * 1.RPC/WSS状態確認<br>
 * 2.（予定）Wallet残高確認<br>
 * 3.SRXノード状態確認（次回報酬日、Rputation等）
@@ -9,6 +10,7 @@ webからxdc3をどこまで使えるのか、javascript、jquery、bootstrap、
 
 # 2.事前準備
 ## (1) git clone
+リポジトリの複製をローカル環境へ作成します。
 ```
 cd ~ && git clone https://github.com/hide-plugin/xdc3_practice.git
 cd xdc3_practice
@@ -18,7 +20,7 @@ cd xdc3_practice
 npm install
 ```
 ## (3) ポート開放
-3000番ポートで接続するためportを開放する。（bin/wwwからport番号変更可）
+3000番ポートで接続するためportを開放します。port番号は"bin/www"から変更できます。
 ```
 sudo ufw status
 sudo ufw allow 3000/tcp
@@ -31,15 +33,24 @@ pm2 start npm --name xdc3_practice -- start
 
 # 3.INPUTファイル準備
 ## (1) RPC/WSS状態確認用 RPC/WSSリスト作成
+RPC/WSSを追加したい場合、既存ファイルを修正してください。
 ```
 cd ~/xdc3_practice/public/data/
 nano networkList.json
 ```
 ## (2) SRXノード状態確認用 Walletリスト作成
+SRXノードで利用しているウォレットアドレス（addr）と概要（name）を下記サンプルファイルを参考に新規作成してください。
 ```
 cd ~/xdc3_practice/public/data/
 nano walletList.json
 ```
+＜サンプルファイル＞
+> [<br>
+> &emsp;{ "addr": "xdcjfdoifu98ru4rtjgrf8yuhg8ttujrfdgoiuf8duf", "name": "Wallet-01" },<br>
+> &emsp;{ "addr": "xdc0fdif09jagfvoigjfsogiyhuyerhglfdjoaifdfu", "name": "Wallet-02" },<br>
+> &emsp;{ "addr": "xdc32r9j9f8ur89agaffadfjadsfjdijgfh98euy92a", "name": "Wallet-03" },<br>
+> ]<br>
+<br>
 
 # 4.画面表示
 ## (1) ブラウザからの接続
