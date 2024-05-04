@@ -9,11 +9,11 @@ webからxdc3をどこまで使えるのか、javascript、jquery、bootstrap、
 * 6.xxxxxx
 
 ## (1) RPC/WSS状態確認
-入力ファイルに記載されたRPC/WSSの状態を一覧表示します。。
+RPC/WSSの状態を一覧表示します。。
 ![networkList](https://github.com/hide-plugin/xdc3_practice/assets/155524286/636246d7-46fa-4054-81f6-1c94453dec8d)<br>
 
 ## (3) SRXノード状態確認
-入力ファイルに記載されたWalletに紐づくStorX-Nodeの状態を一覧表示します。
+Walletに紐づくStorX-Nodeの状態を一覧表示します。
 ![srxList](https://github.com/hide-plugin/xdc3_practice/assets/155524286/78bd3229-18b9-499b-9301-5aa4a5ac27bb)
 
 # 2.事前準備
