@@ -42,13 +42,13 @@ pm2 start npm --name xdc3_practice -- start
 <br>
 
 # 3.INPUTファイル準備
-## (1) RPC/WSS状態確認用 RPC/WSSリスト作成
+## (1) RPC/WSS状態確認用 リスト作成
 RPC/WSSを追加したい場合、既存ファイルを修正してください。
 ```
 cd ~/xdc3_practice/public/data/
 nano networkList.json
 ```
-## (2) SRXノード状態確認用 Walletリスト作成
+## (2) SRXノード状態確認用 リスト作成
 SRXノードで利用しているウォレットアドレス（addr）と概要（name）を下記サンプルファイルを参考に新規作成してください。
 ```
 cd ~/xdc3_practice/public/data/
