@@ -27,7 +27,8 @@ sudo ufw status
 ```
 ## (4) 入力ファイル作成
 ```
-sudo nvm ~xdc3_practice/public/data/walletList.json
+cd ~/xdc3_practice/public/data/
+nano walletList.json
 ```
 ## (5) 常駐化
 ```
