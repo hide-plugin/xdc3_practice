@@ -25,23 +25,25 @@ sudo ufw status
 sudo ufw allow 3000/tcp
 sudo ufw status
 ```
-## (4) 入力ファイル作成
-```
-cd ~/xdc3_practice/public/data/
-nano walletList.json
-```
-## (5) 常駐化
+## (4) 常駐化
 ```
 pm2 start npm --name xdc3_practice -- start
 ```
 
-# 3.画面表示
+# 3.個別準備
+## (1) 入力ファイル作成
+```
+cd ~/xdc3_practice/public/data/
+nano walletList.json
+```
+
+# 4.画面表示
 ## (1) ブラウザからの接続
 ```
 http://[IP-Address]:3000/
 ```
 
-# 4.その他
+# 5.その他
 ## (1) プログラム修正後の差分を取得する場合
 ```
 cd ~/xdc3_practice/
