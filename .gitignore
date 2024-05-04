@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # resultData
-public/data/walletList.json
+#public/data/walletList.json
