@@ -11,7 +11,9 @@ $(function () {
       for (let i = 0; i<wList.length; i++){
         if(wList[i]["srxInfo"].nextRedeemedTm == "報酬発生"){
           bgcolor = "redeem"; 
-        } else {
+        }else if(wList[i]["srxInfo"].nextRedeemedTm.slice(0, 2).toString() < 3) {
+          bgcolor = "redeemSoon"; 
+        }else{
           bgcolor = "normal"; 
         } 
         let html = "<tr>\
@@ -55,7 +57,7 @@ $(function () {
       let diffDays = Math.floor(diffDaysTmp/(1000*60*60*24));
       let diffHours = Math.floor(diffDaysTmp/(1000*60*60)-diffDays*24);
       let diffMinutes = Math.floor(diffDaysTmp/(1000*60)-diffDays*24*60-diffHours*60);
-      result = diffDays.toString().padStart(2,"0")+"d "+diffHours.toString().padStart(2,"0")+":"+diffMinutes.toString().padStart(2,"0");
+      result = diffDays.toString().padStart(2,"0")+"D "+diffHours.toString().padStart(2,"0")+":"+diffMinutes.toString().padStart(2,"0");
     }
     return result;
   }
@@ -75,7 +77,7 @@ $(function () {
 
           if(srxList.data["stakeHolders"][searchWallet]){
             wList[i]["srxInfo"].reputation = srxList.data["stakeHolders"][searchWallet].reputation;
-            wList[i]["srxInfo"].stakedAmount = Math.floor(srxList.data["stakeHolders"][searchWallet]["stake"].stakedAmount / 1e18);
+            wList[i]["srxInfo"].stakedAmount = Math.round(srxList.data["stakeHolders"][searchWallet]["stake"].stakedAmount / 1e18);
             wList[i]["srxInfo"].totalRedeemed = Math.floor(srxList.data["stakeHolders"][searchWallet]["stake"].totalRedeemed / 1e16)/100;
             wList[i]["srxInfo"].balance = srxList.data["stakeHolders"][searchWallet]["stake"].balance;
           
