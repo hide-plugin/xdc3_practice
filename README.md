@@ -9,6 +9,12 @@ webからxdc3をどこまで使えるのか、javascript、jquery、bootstrap、
 * 6.xxxxxx
 <br>
 
+## (1) RPC/WSS状態確認
+入力ファイルに記載されたRPC/WSSの状態を一覧表示します。。
+
+## (3) SRXノード状態確認
+入力ファイルに記載されたWalletのSRX-Node状態を一覧表示します。。
+
 # 2.事前準備
 ## (1) git clone
 ホームディレクトリにリポジトリの複製を作成します。
