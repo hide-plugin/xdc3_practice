@@ -29,7 +29,7 @@ sudo ufw status
 pm2 start npm --name xdc3_practice -- start
 ```
 
-# 3.IPUTファイル準備
+# 3.INPUTファイル準備
 ## (1) RPC/WSS状態確認 RPC/WSSリスト作成
 ```
 cd ~/xdc3_practice/public/data/
