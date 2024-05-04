@@ -69,8 +69,8 @@ $(function () {
   * @param {string} timeout  処理待ち時間
   */
   const getData = (timeout) => {
-    $('#button').prop('disabled', true);
-    $('#button').text('データ取得中');
+    $('#getInfo').prop('disabled', true);
+    $('#getInfo').text('データ取得中');
     $("#networkList").html("<img src='/images/712-24.gif' alt=''>&nbsp;&nbsp;リスト更新中（しばらくお待ちください）");
 
     // データ取得API呼び出し
@@ -87,8 +87,8 @@ $(function () {
     })
     .always(function() {
       // 後処理
-      $('#button').text('データ取得');
-      $('#button').prop('disabled', false);
+      $('#getInfo').text('データ取得');
+      $('#getInfo').prop('disabled', false);
     })
   }
 

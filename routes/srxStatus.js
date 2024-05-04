@@ -6,7 +6,7 @@ const router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   try {
-    res.render('srxStatus', { title: "SRX Status" });
+    res.render('srxStatus', { title: "StorX-Node Status" });
   } catch(err) {
     next(err);
   }
@@ -32,7 +32,7 @@ router.get('/getWallet', async function(req, res, next) {
       outData[i] = {addr: inData[i].addr};
       outData[i].name = inData[i].name;
       outData[i].srxInfo = new Object();
-      // 領域初期化
+      // SRX情報格納領域初期化
       outData[i]["srxInfo"] = {stakedTime: "-"};
       outData[i]["srxInfo"].stakedAmount = "-";
       outData[i]["srxInfo"].reputation = "-";

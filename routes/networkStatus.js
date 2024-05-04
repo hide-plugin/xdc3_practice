@@ -20,7 +20,6 @@ router.get('/', function(req, res, next) {
 */
 router.get('/getStatus', async function(req, res, next) {
   try {
-    console.log("-- [Start] getStatus()");
     if(!fs.existsSync(i_path)){
       console.log("ERROR: RPC/WCCが記載されたjsonファイルが見つかりません。("+i_path+")");
       throw TypeError("ERROR: RPC/WCCが記載されたjsonファイルが見つかりません。("+i_path+")");
@@ -32,12 +31,10 @@ router.get('/getStatus', async function(req, res, next) {
   
     for (const network in inData) {
       // 入力ファイルのNETWORK数（MAINNET/APOTHEM）ループ
-      console.log("[Network] " + network);
       outData[network] = new Object();
 
       for(const type in inData[network]) {
         // TYPE数（RPC/WSS）だけループ
-        console.log("  [Target] " + type);
         outData[network][type] = new Array();
 
         for(let cnt in inData[network][type]){
@@ -49,7 +46,6 @@ router.get('/getStatus', async function(req, res, next) {
           outData[network][type][cnt].gas = "未取得";
           outData[network][type][cnt].pfx = "未取得";
           outData[network][type][cnt].sts = "タイムアウト";
-          console.log("    [Url] " + outData[network][type][cnt].url + " 情報取得");
           getInfo(type, outData[network][type][cnt]);
         }
       }
@@ -62,7 +58,6 @@ router.get('/getStatus', async function(req, res, next) {
     console.log("例外処理" + err);
     next(err);
   } finally {
-    console.log("-- [End] getStatus()");
   }
 });
 
@@ -73,7 +68,7 @@ router.get('/getStatus', async function(req, res, next) {
 */
 async function getInfo(type, data){
   try {
-    console.log("getInfo() 開始");
+    console.log("getInfo() 開始 "+data.url);
     //    let startTime = Date.now();
     let result = 0;
     let xdc3 = new Xdc3(data.url);
@@ -81,7 +76,7 @@ async function getInfo(type, data){
       // RPC系の場合
       data.ver = await xdc3.eth.getNodeInfo();
       data.blc = await xdc3.eth.getBlockNumber();
-      data.gas = await xdc3.eth.getGasPrice() * 0.000000001;
+      data.gas = await xdc3.eth.getGasPrice() / 1e9;
       if(await xdc3.utils.isHexStrict(await xdc3.eth.getCoinbase())){
         data.pfx = "0x";
       }else{
@@ -101,10 +96,10 @@ async function getInfo(type, data){
     data.sts = "正常";
   } catch(err) {
     data.sts = "接続エラー";
+    console.log("接続エラー（"+data.url+"）");
     result = 1;
-    console.log(err);
+//    console.log(err);
   } finally {
-    console.log("getInfo() 終了 "+data.url);
     return result;
   }
 }

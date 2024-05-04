@@ -1,9 +1,9 @@
 $(function () {
   /** 
-   * APIから取得した情報をテーブル出力する。
-   * @param {string} data RPC/WSS 取得情報
+   * 取得したSRX-Node情報をテーブル出力する。
+   * @param {string} wList SRX-Node情報格納オブジェクト
   */
-  const createTable = function(wList){
+  const createTable = async (wList) => {
     try {
       const table1 = $("<br><table border='1' class='srx-tbl'><tbody>");
       table1.append("<tr class='header2'><th>説明</th><th>Walletアドレス</th><th>運用開始日</th><th>Stake枚数</th><th>Reputation</th><th>前回報酬獲得日</th><th>次回報酬まで</th><th>総獲得報酬枚数</th></tr>");
@@ -40,6 +40,10 @@ $(function () {
     }
   }
 
+  /** 
+  * 次回報酬日までの残り日数を算出する。
+  * @param {string} dnumTarget  前回報酬獲得時刻（UNIX-time）
+  */
   function toRedeemDays(dnumTarget) {
     // 本日日時を取得
     let nowDate = new Date();
@@ -62,7 +66,7 @@ $(function () {
     return result;
   }
     
-  const VVV = (wList) => {
+  const VVV = async (wList) => {
     try{
       // データ取得API呼び出し
       $.getJSON("https://farmerapi.storx.io/get-contract-data", (srxList) => {
@@ -87,25 +91,13 @@ $(function () {
             wList[i]["srxInfo"].lastRedeemedAt = time.getFullYear()+"/"+month.toString().padStart(2,"0")+"/"+time.getDate().toString().padStart(2,"0")+" "+time.getHours().toString().padStart(2,"0")+":"+time.getMinutes().toString().padStart(2,"0");
             wList[i]["srxInfo"].nextRedeemedTm = toRedeemDays(time);
 
-
             time = new Date(srxList.data["stakeHolders"][searchWallet]["stake"].stakedTime*1000);
             month = time.getMonth()+1;
             wList[i]["srxInfo"].stakedTime = time.getFullYear()+"/"+month.toString().padStart(2,"0")+"/"+time.getDate().toString().padStart(2,"0")+" "+time.getHours().toString().padStart(2,"0")+":"+time.getMinutes().toString().padStart(2,"0");
-
-            console.log("srxInfo.stakedTime=" + wList[i]["srxInfo"].stakedTime);
-            console.log("srxInfo.stakedAmount=" + wList[i]["srxInfo"].stakedAmount);
-            console.log("srxInfo.reputation=" + wList[i]["srxInfo"].reputation);
-            console.log("srxInfo.totalRedeemed=" + wList[i]["srxInfo"].totalRedeemed);
-            console.log("srxInfo.lastRedeemedAt=" + wList[i]["srxInfo"].lastRedeemedAt);
-            console.log("srxInfo.nextRedeemedTm=" + wList[i]["srxInfo"].nextRedeemedTm);
-            console.log("srxInfo.balance=" + wList[i]["srxInfo"].balance);
-            console.log("name=" + wList[i].name);
-            console.log(searchWallet);
           }else{
-          console.log("SRX-LISTに該当Walletが見つかりません。（"+ searchWallet +"）");
+            console.log("StorX-Nodeで使われていないWalletです。（"+ searchWallet +"）");
           };
         }
-
         createTable(wList);
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
@@ -117,24 +109,17 @@ $(function () {
       })
       .always(function() {
         // 後処理
-        $('#button').text('データ取得');
-        $('#button').prop('disabled', false);
       })
     }catch(err){
-
     }finally{
-
     }
   }
-
-  /** 
-  * APIから最新情報を取得する。
-  */
-  const getData = () => {
-    $('#button').prop('disabled', true);
-    $('#button').text('データ取得中');
+  // 更新ボタン押下時イベント
+  $('#getSRX').on("click", function() {
+    $('#getSRX').prop('disabled', true);
+    $('#getSRX').text('データ取得中');
     $("#networkList").html("<img src='/images/712-24.gif' alt=''>&nbsp;&nbsp;リスト更新中（しばらくお待ちください）");
-
+  
     // データ取得API呼び出し
     $.getJSON("/srxStatus/getWallet", (resultData) => {
       // API呼び出し正常終了
@@ -144,19 +129,13 @@ $(function () {
       // API呼び出し異常終了
       console.log("getStatus() 異常終了");
       console.log("テキスト：" + jqXHR.responseText);
-      $("#networkList").html("<p>データ取得中にエラーが発生しました。</p>");
-      $("#networkList").append(jqXHR.responseText);
+      $("#srxList").html("<p>データ取得中にエラーが発生しました。</p>");
+      $("#srxList").append(jqXHR.responseText);
     })
     .always(function() {
       // 後処理
-      $('#button').text('データ取得');
-      $('#button').prop('disabled', false);
+      $('#getSRX').text('データ取得');
+      $('#getSRX').prop('disabled', false);
     })
-  }
-  
-    // 更新ボタン押下時イベント
-    $('#getSRX').on("click", function() {
-      console.log("aaaaaaaaa");
-      getData();
-    });
   });
+});
