@@ -1,12 +1,10 @@
 $(function () {
-  // JSONデータの取得先
-  const resultPath = "./data/result/result.json";
-
-  // APIから取得した情報を画面へ描画
-  const createTable = function(){
-    $.getJSON(resultPath, function(data) {
-      console.log("createTable() 正常終了");
-      // JSONデータを受信した後に実行する処理
+  /** 
+  * APIから取得した情報をテーブル出力する。
+  * @param {string} data RPC/WSS 取得情報
+  */
+  const createTable = function(data){
+    try {
       // tableのrowspanを設定
       let mRLen = data["MAINNET"]["RPC"].length;  // Mainnet/RPCの項目数
       let mWLen = data["MAINNET"]["WSS"].length;  // Mainnet/WSSの項目数
@@ -16,7 +14,7 @@ $(function () {
       let typLength = [mRLen, mWLen, aRLen, aWLen];
  
       const table1 = $("<br><table border='1' class='network-tbl'><tbody>");
-      table1.append("<tr class='header1'><th colspan='9' >作成日付：" + data.DATE + "</th></tr>");
+//      table1.append("<tr class='header1'><th colspan='9' >作成日付：" + data.DATE + "</th></tr>");
       table1.append("<tr class='header2'><th>Network</th><th>Type</th><th>URL</th><th>Version</th><th>Block</th><th>Gas(Gwei)</th><th>Prefix</th><th>ChainID</th><th>Status</th></tr>");
   
       let iCnt=0;
@@ -58,35 +56,31 @@ $(function () {
       // 指定場所へHTML出力
       table1.append("</tbody></table>");
       $("#networkList").html(table1);
-    })
-    .fail(function(jqXHR, textStatus, errorThrown) {
+    } catch {
       console.log("createTable() 異常終了");
-      console.log("エラー：" + textStatus);
       console.log("テキスト：" + jqXHR.responseText);
       $("#networkList").html("<p>テーブルの作成に失敗しました。</p>");
-    })
-    .always(function() {
-      // 後処理
-      console.log("createTable() 完了");
-    })
+    } finally {
+    }
   }
-    
-  // APIから最新情報を取得
-  const getData = function(timeout){
+
+  /** 
+  * APIから最新情報を取得する。
+  * @param {string} timeout  処理待ち時間
+  */
+  const getData = (timeout) => {
     $('#button').prop('disabled', true);
     $('#button').text('データ取得中');
     $("#networkList").html("<img src='/images/712-24.gif' alt=''>&nbsp;&nbsp;リスト更新中（しばらくお待ちください）");
 
-    // リスト更新API呼び出し
-    $.getJSON("/createList?timeout="+timeout, function() {
-      // API呼び出し成功時
-      console.log("getData() 正常終了");
-      // 画面描画呼び出し
-      createTable();
+    // データ取得API呼び出し
+    $.getJSON("/networkStatus/getStatus?timeout="+timeout, (resultData) => {
+      // API呼び出し正常終了
+      createTable(resultData);
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
-      // API呼び出し失敗時、画面へエラー詳細を出力
-      console.log("getData() 異常終了");
+      // API呼び出し異常終了
+      console.log("getStatus() 異常終了");
       console.log("テキスト：" + jqXHR.responseText);
       $("#networkList").html("<p>データ取得中にエラーが発生しました。</p>");
       $("#networkList").append(jqXHR.responseText);
@@ -95,19 +89,21 @@ $(function () {
       // 後処理
       $('#button').text('データ取得');
       $('#button').prop('disabled', false);
-      console.log("getData() 完了");
     })
   }
 
-  // 更新ボタン押下イベント
+  // 更新ボタン押下時イベント
   $('#getInfo').on("click", function() {
     let element = document.getElementById('timeout');
     $("#errMsg").html("");
     if(element.value == ""){
+      // 必須エラー
       $("#errMsg").html("<p class='error'>【入力エラー】「応答待ち時間」は必須入力項目です。</p>");
     } else if (element.value < 1 || element.value > 60) {
+      // 入力エラー
       $("#errMsg").html("<p class='error'>【入力エラー】「応答待ち時間」は1-60（秒）の間で入力してください。</p>");
     } else {
+      // 正常
       getData(element.value);
     }
   });

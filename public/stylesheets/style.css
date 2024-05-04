@@ -74,6 +74,14 @@ a {
   background-color: #FF6666;
 }
 
+.redeem {
+  background-color: #FF3333;
+}
+
+.redeemSoon {
+  background-color: #FF9999;
+}
+
 #timeout {
   width: 5em;
   margin-right: 1em;
@@ -83,3 +91,60 @@ a {
   color: red;
   font-weight: bold;
 }
+
+
+
+
+
+.srx-tbl {
+  border-collapse: collapse;
+}
+
+/* thの設定 */
+.srx-tbl th{
+  background: #b7efb7;
+  border: 1px solid #333;
+  line-height: 25px;
+  padding: 0px 15px;
+}
+
+/* trの設定 */
+.srx-tbl.tr {
+  background: #b7efb7;
+  border: 1px solid #333;
+  line-height: 25px;
+  padding: 0px 15px;
+}
+
+/* tdの設定 */
+.srx-tbl td{
+  border: 1px solid #333;
+  line-height: 25px;
+  padding: 0px 15px;
+}
+
+/* ヘッダーを中央揃え */
+.srx-tbl th{
+  text-align: center;
+}
+
+/* 引数の列を中央揃え */
+.srx-tbl td:nth-of-type(3) {
+  text-align: center;
+}
+.srx-tbl td:nth-of-type(4) {
+  text-align: center;
+}
+.srx-tbl td:nth-of-type(5) {
+  text-align: center;
+}
+.srx-tbl td:nth-of-type(6) {
+  text-align: center;
+}
+.srx-tbl td:nth-of-type(7) {
+  text-align: center;
+}
+.srx-tbl td:nth-of-type(8) {
+  text-align: center;
+}
+

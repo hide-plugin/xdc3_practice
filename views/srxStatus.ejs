@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="/javascripts/srx.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1><br>
+    <div id="div1">
+      <li>対象Walletを変更したい場合、ファイルを直接修正してください。（public/data/wallet.json）</li>
+      <li>StorX-Nodeに割り当てていないWalletは"-"で表示されます。</li>
+      <li>こちらの情報は目安として利用してください。</li>
+      <br>
+    </div>
+    <button type="submit" id="getSRX">データ取得</button>
+    <div id="errMsg"></div>
+    <div id="srxList"></div>
+  </body>
+</html>
