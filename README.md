@@ -18,7 +18,7 @@ cd xdc3_practice
 npm install
 ```
 ## (3) ポート開放
-3000番ポートで接続するためportを開放する。（bin/wwwでport変更可）
+3000番ポートで接続するためportを開放する。（bin/wwwからport番号変更可）
 ```
 sudo ufw status
 sudo ufw allow 3000/tcp
