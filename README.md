@@ -29,8 +29,13 @@ sudo ufw status
 pm2 start npm --name xdc3_practice -- start
 ```
 
-# 3.個別準備
-## (1) 入力ファイル作成
+# 3.IPUTファイル準備
+## (1) RPC/WSS状態確認 RPC/WSSリスト作成
+```
+cd ~/xdc3_practice/public/data/
+nano networkList.json
+```
+## (2) SRXノード状態確認用 Walletリスト作成
 ```
 cd ~/xdc3_practice/public/data/
 nano walletList.json
