@@ -118,8 +118,9 @@ $(function () {
   $('#getSRX').on("click", function() {
     $('#getSRX').prop('disabled', true);
     $('#getSRX').text('データ取得中');
-    $("#networkList").html("<img src='/images/712-24.gif' alt=''>&nbsp;&nbsp;リスト更新中（しばらくお待ちください）");
-  
+    $("#srxList").html("<img src='/images/712-24.gif' alt=''>&nbsp;&nbsp;リスト更新中（しばらくお待ちください）");
+
+    $.ajaxSetup({async: true});
     // データ取得API呼び出し
     $.getJSON("/srxStatus/getWallet", (resultData) => {
       // API呼び出し正常終了
@@ -137,5 +138,6 @@ $(function () {
       $('#getSRX').text('データ取得');
       $('#getSRX').prop('disabled', false);
     })
+    $.ajaxSetup({async: false});
   });
 });

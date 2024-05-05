@@ -14,7 +14,6 @@ $(function () {
       let typLength = [mRLen, mWLen, aRLen, aWLen];
  
       const table1 = $("<br><table border='1' class='network-tbl'><tbody>");
-//      table1.append("<tr class='header1'><th colspan='9' >作成日付：" + data.DATE + "</th></tr>");
       table1.append("<tr class='header2'><th>Network</th><th>Type</th><th>URL</th><th>Version</th><th>Block</th><th>Gas(Gwei)</th><th>Prefix</th><th>ChainID</th><th>Status</th></tr>");
   
       let iCnt=0;
@@ -60,8 +59,7 @@ $(function () {
       console.log("createTable() 異常終了");
       console.log("テキスト：" + jqXHR.responseText);
       $("#networkList").html("<p>テーブルの作成に失敗しました。</p>");
-    } finally {
-    }
+    } 
   }
 
   /** 
@@ -76,6 +74,7 @@ $(function () {
     // データ取得API呼び出し
     $.getJSON("/networkStatus/getStatus?timeout="+timeout, (resultData) => {
       // API呼び出し正常終了
+      // テーブル描画処理呼び出し
       createTable(resultData);
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
