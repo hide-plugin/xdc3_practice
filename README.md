@@ -49,7 +49,7 @@ cd ~/xdc3_practice/public/data/
 nano networkList.json
 ```
 ## (2) SRXノード状態確認用 リスト作成
-SRXノードで利用しているウォレットアドレス（addr）と概要（name）を下記サンプルファイルを参考に新規作成してください。
+SRXノードで利用しているウォレットアドレス（addr）と説明（name）を下記サンプルファイルを参考に新規作成してください。
 ```
 cd ~/xdc3_practice/public/data/
 nano walletList.json
