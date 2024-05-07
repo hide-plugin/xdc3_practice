@@ -14,7 +14,7 @@ RPC/WSSの状態を一覧表示します。
 
 ## (3) SRXノード状態確認
 Walletに紐づくStorX-Nodeの状態を一覧表示します。
-![srxList](https://github.com/hide-plugin/xdc3_practice/assets/155524286/549ba21d-0298-45bd-8021-fa188f82733d)<br>
+![srxList](https://github.com/hide-plugin/xdc3_practice/assets/155524286/acb9779d-eacc-4755-b451-95cd2b8b3d3b)<br>
 
 # 2.事前準備
 ## (1) git clone
@@ -49,7 +49,7 @@ cd ~/xdc3_practice/public/data/
 nano networkList.json
 ```
 ## (2) SRXノード状態確認用 リスト作成
-SRXノードで利用しているウォレットアドレス（addr）と概要（name）を下記サンプルファイルを参考に新規作成してください。
+SRXノードで利用しているウォレットアドレス（addr）と説明（name）を下記サンプルファイルを参考に新規作成してください。
 ```
 cd ~/xdc3_practice/public/data/
 nano walletList.json
@@ -64,9 +64,12 @@ nano walletList.json
 
 # 4.画面表示
 ## (1) ブラウザからの接続
+[IP-Address]はVPSサーバーのIPアドレスを指定してください。<br>
+ローカルPCで実行する場合はループバックアドレス（127.0.0.1）を指定してください。
 ```
 http://[IP-Address]:3000/
 ```
+<br>
 
 # 5.その他
 ## (1) プログラム修正後の差分を取得する場合
