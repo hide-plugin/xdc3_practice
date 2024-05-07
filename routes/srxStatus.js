@@ -13,13 +13,11 @@ router.get('/', function(req, res, next) {
 });
 
 /** 
- * 入力ファイルを元にWalletのデータ格納用オブジェクトを生成する。
+ * Walletデータ格納用オブジェクトを生成する。
 */
 router.get('/getWallet', async function(req, res, next) {
   try {
-    console.log("-- [Start] getWallet()");
     if(!fs.existsSync(i_path)){
-      console.log("ERROR: Walletが記載されたjsonファイルが見つかりません。("+i_path+")");
       throw TypeError("ERROR: Walletが記載されたjsonファイルが見つかりません。("+i_path+")");
     }
     const bufferData = fs.readFileSync(i_path);
@@ -32,6 +30,7 @@ router.get('/getWallet', async function(req, res, next) {
       outData[i] = {addr: inData[i].addr};
       outData[i].name = inData[i].name;
       outData[i].srxInfo = new Object();
+
       // SRX情報格納領域初期化
       outData[i]["srxInfo"] = {stakedTime: "-"};
       outData[i]["srxInfo"].stakedAmount = "-";
@@ -41,13 +40,10 @@ router.get('/getWallet', async function(req, res, next) {
       outData[i]["srxInfo"].nextRedeemedTm = "-";
       outData[i]["srxInfo"].totalRedeemed = "-";
     }
-
     res.json(outData);
   } catch(err) {
-    console.log("例外処理" + err);
+    console.log(err);
     next(err);
-  } finally {
-    console.log("-- [End] getWallet()");
   }
 });
 

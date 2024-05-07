@@ -21,7 +21,6 @@ router.get('/', function(req, res, next) {
 router.get('/getStatus', async function(req, res, next) {
   try {
     if(!fs.existsSync(i_path)){
-      console.log("ERROR: RPC/WCCが記載されたjsonファイルが見つかりません。("+i_path+")");
       throw TypeError("ERROR: RPC/WCCが記載されたjsonファイルが見つかりません。("+i_path+")");
     }
     const bufferData = fs.readFileSync(i_path);
@@ -50,14 +49,12 @@ router.get('/getStatus', async function(req, res, next) {
         }
       }
     }
-
     // 非同期処理を画面で指定した秒数だけ待機
     await new Promise((resolve) => setTimeout(resolve, req.query.timeout*1000));
     res.json(outData);
   } catch(err) {
-    console.log("例外処理" + err);
+    console.log(err);
     next(err);
-  } finally {
   }
 });
 
@@ -68,9 +65,6 @@ router.get('/getStatus', async function(req, res, next) {
 */
 async function getInfo(type, data){
   try {
-    console.log("getInfo() 開始 "+data.url);
-    //    let startTime = Date.now();
-    let result = 0;
     let xdc3 = new Xdc3(data.url);
     if(type == "RPC"){
       // RPC系の場合
@@ -97,10 +91,6 @@ async function getInfo(type, data){
   } catch(err) {
     data.sts = "接続エラー";
     console.log("接続エラー（"+data.url+"）");
-    result = 1;
-//    console.log(err);
-  } finally {
-    return result;
   }
 }
 

@@ -4,19 +4,18 @@ $(function () {
    * @param {string} wList SRX-Node情報格納オブジェクト
   */
   const createTable = async (wList) => {
-    try {
-      const table1 = $("<br><table border='1' class='srx-tbl'><tbody>");
-      table1.append("<tr class='header2'><th>説明</th><th>Walletアドレス</th><th>運用開始日</th><th>Stake枚数</th><th>Reputation</th><th>前回報酬獲得日</th><th>次回報酬まで</th><th>総獲得報酬枚数</th></tr>");
+    const table1 = $("<br><table border='1' class='srx-tbl'><tbody>");
+    table1.append("<tr class='header2'><th>説明</th><th>Walletアドレス</th><th>運用開始日</th><th>Stake枚数</th><th>Reputation</th><th>前回報酬獲得日</th><th>次回報酬まで</th><th>総獲得報酬枚数</th></tr>");
 
-      for (let i = 0; i<wList.length; i++){
-        if(wList[i]["srxInfo"].nextRedeemedTm == "報酬発生"){
-          bgcolor = "redeem"; 
-        }else if(wList[i]["srxInfo"].nextRedeemedTm.slice(0, 2).toString() < 3) {
-          bgcolor = "redeemSoon"; 
-        }else{
-          bgcolor = "normal"; 
-        } 
-        let html = "<tr>\
+    for (let i = 0; i<wList.length; i++){
+      if(wList[i]["srxInfo"].nextRedeemedTm == "報酬発生"){
+        bgcolor = "redeem"; 
+      }else if(wList[i]["srxInfo"].nextRedeemedTm.slice(0, 2).toString() < 3) {
+        bgcolor = "redeemSoon"; 
+      }else{
+        bgcolor = "normal"; 
+      } 
+      let html = "<tr>\
                  <td>"+wList[i].name+"</td>\
                  <td>"+wList[i].addr+"</td>\
                  <td>"+wList[i]["srxInfo"].stakedTime+"</td>\
@@ -26,18 +25,12 @@ $(function () {
                  <td class='" + bgcolor + "'>"+wList[i]["srxInfo"].nextRedeemedTm+"</td>\
                  <td>"+wList[i]["srxInfo"].totalRedeemed+"</td>\
                  </tr>";
-        table1.append(html);
-        html = "";
-      }
-      // 指定場所へHTML出力
-      table1.append("</tbody></table>");
-      $("#srxList").html(table1);
-    } catch {
-      console.log("createTable() 異常終了");
-      console.log("テキスト：" + jqXHR.responseText);
-      $("#networkList").html("<p>テーブルの作成に失敗しました。</p>");
-    } finally {
+      table1.append(html);
+      html = "";
     }
+    // 指定場所へHTML出力
+    table1.append("</tbody></table>");
+    $("#srxList").html(table1);
   }
 
   /** 
@@ -67,77 +60,62 @@ $(function () {
   }
     
   const VVV = async (wList) => {
-    try{
-      // データ取得API呼び出し
-      $.getJSON("https://farmerapi.storx.io/get-contract-data", (srxList) => {
-        // API呼び出し正常終了
-        let searchWallet = "";
-        for(let i=0; i<wList.length; i++) {
-          searchWallet = wList[i].addr.toLowerCase();
-          if(!searchWallet.indexOf("xdc")){
-            // プレフィクスがxdcの場合0xに置換
-            searchWallet = searchWallet.replace("xdc", '0x');
-          }
-
-          if(srxList.data["stakeHolders"][searchWallet]){
-            wList[i]["srxInfo"].reputation = srxList.data["stakeHolders"][searchWallet].reputation;
-            wList[i]["srxInfo"].stakedAmount = Math.round(srxList.data["stakeHolders"][searchWallet]["stake"].stakedAmount / 1e18);
-            wList[i]["srxInfo"].totalRedeemed = Math.floor(srxList.data["stakeHolders"][searchWallet]["stake"].totalRedeemed / 1e16)/100;
-            wList[i]["srxInfo"].balance = srxList.data["stakeHolders"][searchWallet]["stake"].balance;
-          
-            // UNIX時間（秒）をJS用に合わせる（ミリ秒）
-            var time = new Date(srxList.data["stakeHolders"][searchWallet]["stake"].lastRedeemedAt*1000);
-            var month = time.getMonth()+1;
-            wList[i]["srxInfo"].lastRedeemedAt = time.getFullYear()+"/"+month.toString().padStart(2,"0")+"/"+time.getDate().toString().padStart(2,"0")+" "+time.getHours().toString().padStart(2,"0")+":"+time.getMinutes().toString().padStart(2,"0");
-            wList[i]["srxInfo"].nextRedeemedTm = toRedeemDays(time);
-
-            time = new Date(srxList.data["stakeHolders"][searchWallet]["stake"].stakedTime*1000);
-            month = time.getMonth()+1;
-            wList[i]["srxInfo"].stakedTime = time.getFullYear()+"/"+month.toString().padStart(2,"0")+"/"+time.getDate().toString().padStart(2,"0")+" "+time.getHours().toString().padStart(2,"0")+":"+time.getMinutes().toString().padStart(2,"0");
-          }else{
-            console.log("StorX-Nodeで使われていないWalletです。（"+ searchWallet +"）");
-          };
+    // データ取得API呼び出し
+    $.getJSON("https://farmerapi.storx.io/get-contract-data", (srxList) => {
+      // API呼び出し正常終了
+      let searchWallet = "";
+      for(let i=0; i<wList.length; i++) {
+        searchWallet = wList[i].addr.toLowerCase();
+        if(!searchWallet.indexOf("xdc")){
+          // プレフィクスがxdcの場合0xに置換
+          searchWallet = searchWallet.replace("xdc", '0x');
         }
-        createTable(wList);
-      })
-      .fail(function(jqXHR, textStatus, errorThrown) {
-        // API呼び出し異常終了
-        console.log("SRX-API異常終了");
-        console.log("テキスト：" + jqXHR.responseText);
-        $("#networkList").html("<p>データ取得中にエラーが発生しました。</p>");
-        $("#networkList").append(jqXHR.responseText);
-      })
-      .always(function() {
-        // 後処理
-      })
-    }catch(err){
-    }finally{
-    }
+
+        if(srxList.data["stakeHolders"][searchWallet]){
+          wList[i]["srxInfo"].reputation = srxList.data["stakeHolders"][searchWallet].reputation;
+          wList[i]["srxInfo"].stakedAmount = Math.round(srxList.data["stakeHolders"][searchWallet]["stake"].stakedAmount / 1e18);
+          wList[i]["srxInfo"].totalRedeemed = Math.floor(srxList.data["stakeHolders"][searchWallet]["stake"].totalRedeemed / 1e16)/100;
+          wList[i]["srxInfo"].balance = srxList.data["stakeHolders"][searchWallet]["stake"].balance;
+          
+          // UNIX時間（秒）をJS用に合わせる（ミリ秒）
+          var time = new Date(srxList.data["stakeHolders"][searchWallet]["stake"].lastRedeemedAt*1000);
+          var month = time.getMonth()+1;
+          wList[i]["srxInfo"].lastRedeemedAt = time.getFullYear()+"/"+month.toString().padStart(2,"0")+"/"+time.getDate().toString().padStart(2,"0")+" "+time.getHours().toString().padStart(2,"0")+":"+time.getMinutes().toString().padStart(2,"0");
+          wList[i]["srxInfo"].nextRedeemedTm = toRedeemDays(time);
+
+          time = new Date(srxList.data["stakeHolders"][searchWallet]["stake"].stakedTime*1000);
+          month = time.getMonth()+1;
+          wList[i]["srxInfo"].stakedTime = time.getFullYear()+"/"+month.toString().padStart(2,"0")+"/"+time.getDate().toString().padStart(2,"0")+" "+time.getHours().toString().padStart(2,"0")+":"+time.getMinutes().toString().padStart(2,"0");
+        }else{
+          console.log("StorX-Nodeで使われていないWalletです。（"+ searchWallet +"）");
+        };
+      }
+      createTable(wList);
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+      // API呼び出し異常終了
+      $("#networkList").html("<p>データ取得中にエラーが発生しました。</p>");
+      $("#networkList").append(jqXHR.responseText);
+    })
   }
+
   // 更新ボタン押下時イベント
   $('#getSRX').on("click", function() {
     $('#getSRX').prop('disabled', true);
     $('#getSRX').text('データ取得中');
     $("#srxList").html("<img src='/images/712-24.gif' alt=''>&nbsp;&nbsp;リスト更新中（しばらくお待ちください）");
 
-    $.ajaxSetup({async: true});
     // データ取得API呼び出し
     $.getJSON("/srxStatus/getWallet", (resultData) => {
-      // API呼び出し正常終了
+      // API呼び出し正常
       VVV(resultData); 
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
-      // API呼び出し異常終了
-      console.log("getStatus() 異常終了");
-      console.log("テキスト：" + jqXHR.responseText);
+      // API呼び出し異常
       $("#srxList").html("<p>データ取得中にエラーが発生しました。</p>");
       $("#srxList").append(jqXHR.responseText);
     })
-    .always(function() {
-      // 後処理
-      $('#getSRX').text('データ取得');
-      $('#getSRX').prop('disabled', false);
-    })
-    $.ajaxSetup({async: false});
+    $('#getSRX').text('データ取得');
+    $('#getSRX').prop('disabled', false);
   });
 });
