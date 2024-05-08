@@ -56,9 +56,9 @@ nano walletList.json
 ```
 ＜サンプルファイル＞
 > [<br>
-> &emsp;{ "addr": "xdcjfdoifu98ru4rtjgrf8yuhg8ttujrfdgoiuf8duf", "name": "Wallet-01" },<br>
-> &emsp;{ "addr": "xdc0fdif09jagfvoigjfsogiyhuyerhglfdjoaifdfu", "name": "Wallet-02" },<br>
-> &emsp;{ "addr": "xdc32r9j9f8ur89agaffadfjadsfjdijgfh98euy92a", "name": "Wallet-03" }<br>
+>   { "addr": "xdcjfdoifu98ru4rtjgrf8yuhg8ttujrfdgoiuf8duf", "name": "Wallet-01" },<br>
+>   { "addr": "xdc0fdif09jagfvoigjfsogiyhuyerhglfdjoaifdfu", "name": "Wallet-02" },<br>
+>   { "addr": "xdc32r9j9f8ur89agaffadfjadsfjdijgfh98euy92a", "name": "Wallet-03" }<br>
 > ]<br>
 <br>
 
