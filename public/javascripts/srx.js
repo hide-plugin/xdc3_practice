@@ -43,7 +43,7 @@ $(function () {
     let dnumNow = nowDate.getTime();
     
     // 前回報酬日から30日後の日時を取得
-    dnumTarget.setMonth( dnumTarget.getMonth() + 1);
+    dnumTarget.setDate(dnumTarget.getDate() + 30);
     
     if(dnumTarget<dnumNow){
       // 報酬日を過ぎている場合
