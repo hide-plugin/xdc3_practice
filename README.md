@@ -14,7 +14,7 @@ RPC/WSSの状態を一覧表示します。
 
 ## (3) SRXノード状態確認
 Walletに紐づくStorX-Nodeの状態を一覧表示します。
-![srxList](https://github.com/hide-plugin/xdc3_practice/assets/155524286/acb9779d-eacc-4755-b451-95cd2b8b3d3b)<br>
+![srxList](https://github.com/hide-plugin/xdc3_practice/assets/155524286/e5357ff1-ea24-4599-a714-246abc116775)<br>
 
 # 2.事前準備
 ## (1) git clone
