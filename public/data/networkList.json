@@ -1,15 +1,20 @@
 {
     "MAINNET" : {
         "RPC" : [
-            { "url": "https://arpc.xinfin.network" },
-            { "url": "https://erpc.xinfin.network" },
-            { "url": "https://earpc.xinfin.network" },
             { "url": "https://rpc.xinfin.network" },
+            { "url": "https://erpc.xinfin.network" },
+            { "url": "https://arpc.xinfin.network" },
+            { "url": "https://earpc.xinfin.network" },
+            { "url": "https://xdc.public-rpc.com" },
+            { "url": "https://erpc.xdcrpc.com" },
             { "url": "https://rpc.primenumbers.xyz/" },
+            { "url": "https://rpc.ankr.com/xdc" },
             { "url": "https://rpc.primenumbers2.xyz/" }
 
         ],
         "WSS" : [
+            { "url": "wss://ws.xinfin.network" },
+            { "url": "wss://ews.xinfin.network" },
             { "url": "wss://aws.xinfin.network" },
             { "url": "wss://eaws.xinfin.network" }
         ]
