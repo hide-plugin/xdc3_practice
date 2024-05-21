@@ -8,11 +8,11 @@ webからxdc3をどこまで使えるのか、javascript、jquery、bootstrap、
 * 5.（予定）pm2 status一覧表示機能 SRX/PLI<br>
 * 6.xxxxxx
 
-## (1) RPC/WSS状態確認
+## (1) RPC/WSS 状態確認
 RPC/WSSの状態を一覧表示します。
 ![networkList](https://github.com/hide-plugin/xdc3_practice/assets/155524286/636246d7-46fa-4054-81f6-1c94453dec8d)<br>
 
-## (3) SRXノード状態確認
+## (3) SRX-Node 報酬日確認
 Walletに紐づくStorX-Nodeの状態を一覧表示します。
 ![srxList](https://github.com/hide-plugin/xdc3_practice/assets/155524286/e5357ff1-ea24-4599-a714-246abc116775)<br>
 
