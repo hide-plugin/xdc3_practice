@@ -29,7 +29,7 @@ cd xdc3_practice
 npm install
 ```
 ## (3) ポート開放
-3000番ポートで接続するためportを開放します。port番号は"bin/www"から変更できます。
+3000番ポートで接続するためportを開放します。
 ```
 sudo ufw status
 sudo ufw allow 3000/tcp
@@ -48,7 +48,7 @@ RPC/WSSを追加したい場合、既存ファイルを修正してください�
 cd ~/xdc3_practice/public/data/
 nano networkList.json
 ```
-## (2) SRXノード状態確認用 リスト作成
+## (2) SRX-Node報酬日確認用 リスト作成
 SRXノードで利用しているウォレットアドレス（addr）と説明（name）を下記サンプルファイルを参考に新規作成してください。
 ```
 cd ~/xdc3_practice/public/data/
