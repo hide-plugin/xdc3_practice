@@ -77,5 +77,6 @@ http://[IP-Address]:3000/
 cd ~/xdc3_practice/
 git pull
 ```
+※RPC/WSS状態確認用リストは上書きされてしまうため、上書きされたくない場合は事前に退避してください。
 # 参考
 XinFinOrg/XDC3：https://github.com/XinFinOrg/XDC3/blob/master/README-Web3.md
