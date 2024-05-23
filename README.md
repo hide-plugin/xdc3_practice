@@ -2,7 +2,7 @@
 webからxdc3をどこまで使えるのか、javascript、jquery、bootstrap、postgresqlの練習も兼ねる。<br>
 実装機能（予定）を以下に記載する。<br>
 * 1.RPC/WSS状態確認<br>
-* 2.（予定）Wallet残高確認<br>
+* 2.（作業中）Wallet残高確認<br>
 * 3.SRXノード状態確認（次回報酬日、Rputation等）
 * 4.（予定）pm2 logエラー一覧表示機能<br>
 * 5.（予定）pm2 status一覧表示機能 SRX/PLI<br>
